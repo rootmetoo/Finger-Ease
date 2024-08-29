@@ -1,0 +1,33 @@
+REM HWID.csv file creator to assist with Autopilot Intune device registration 
+
+REM open windows powershell with Admin
+DELAY 1000
+GUI r
+DELAY 250
+STRING powershell
+DELAY 250
+ENTER
+DELAY 1000
+STRING md c:\HWID
+ENTER
+DELAY 500
+STRING Set-Location c:\HWID
+ENTER
+DELAY 500
+STRING Set-ExecutionPolicy -Scope Process -ExecutionPolicy Unrestricted -Force
+ENTER
+DELAY 500
+STRING Install-Script -Name Get-WindowsAutopilotInfo -Force
+ENTER
+STRING Y
+DELAY 200
+ENTER
+DELAY 20000
+STRING $env:PATH +=";C:\Program Files\WindowsPowershell\Scripts"
+ENTER
+DELAY 500
+STRING Get-WindowsAutopilotInfo.ps1 -OutputFile AutopilotHWID.csv
+ENTER
+DELAY 500
+STRING Copy-Item -Path C:\HWID\AutopilotHWID.csv -Destination D:\HWID\
+ENTER
